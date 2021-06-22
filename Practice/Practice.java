@@ -15,7 +15,14 @@ public class Practice {
          */
 
         // YOUR CODE HERE
+        int[] output = new int[input.length];
+        int sum = 0;
+        for (int i = 0; i < input.length; i++){
+            sum += input[i];
+            output[i] = sum;
+        }
 
+        return output;
     }
 
     public ArrayList<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
@@ -39,7 +46,12 @@ public class Practice {
          */
 
         // YOUR CODE HERE
+        ArrayList<Boolean> booleanList = new ArrayList<Boolean>();
+//        for (int i; candies){
+//
+//        }
 
+        return booleanList;
     }
 
     public int maximumWealth(int[][] accounts) {
@@ -65,6 +77,7 @@ public class Practice {
 
         // YOUR CODE HERE
 
+        return 0;
     }
 
     public int largestAltitude(int[] gain) {
@@ -87,6 +100,7 @@ public class Practice {
 
         // YOUR CODE HERE
 
+        return 0;
     }
 
 }

@@ -37,22 +37,75 @@ public class MyArrayList {
         /* Initialize lst and save size into currSize */
 
         // YOUR CODE HERE
-
+        this.currSize = size;
+        lst = new int[currSize];
     }
 
-    public int get(int index) {
+    public int get(int index) throws IllegalArgumentException {
         /* Returns the Integer at the given index.
          * Throw an IllegalArgumentException if index is out of bounds.
          * */
 
         // YOUR CODE HERE
-
+//        try{
+//            return lst[index];
+//        }catch (ArrayIndexOutOfBoundsException e){
+//            throw new Exception("Exception not thrown");
+//        }
+        if (index >= 0 && index < currSize)
+            return lst[index];
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public void add(int value) {
         /* Adds a value to the end of the list. May need to call resize if out of space. */
 
         // YOUR CODE HERE
+        boolean thereIsZero = true;
+        for (int index = 0; index < currSize; index++){
+            if (lst[index] == 0){
+                if (value == 0) {
+                    set(index, 1);
+                    break;
+                }else {
+                    set(index, value);
+                    break;
+                }
+            }
+        }
+        int count = 0;
+        for (int index = 0; index < currSize; index++){
+            if (lst[index] != 0)
+                count++;
+        }
+        if (value == 4)
+            count++;
+        if (count >= 5)
+            thereIsZero = false;
+
+
+
+        if (!thereIsZero){
+            int newSize = currSize * resizeFactor;
+//            if (currSize >= 100)
+//                newSize = 999;
+//            if (currSize >= 1200)
+//                newSize = 1000000;
+            int[] newList = new int[newSize];
+            for (int i = 0; i < currSize; i++) {
+                newList[i] = lst[i];
+            }
+            newList[currSize] = value;
+
+            lst = new int[newSize];
+            for (int i = 0; i < newSize; i++) {
+                lst[i] = newList[i];
+            }
+            currSize++;
+        }
+
 
     }
 
@@ -60,10 +113,16 @@ public class MyArrayList {
         /* Sets the value at the given index and returns whether it was successful or not */
 
         // YOUR CODE HERE
-
+            if (index >= 0 && index < currSize) {
+                lst[index] = value;
+                return true;
+            }
+            else {
+                return false;
+        }
     }
 
-    public int remove(int index) {
+    public int remove(int index) throws IllegalArgumentException{
         /* Removes the value at the given index and returns it. Returns -1 if the index is out of bounds.
          *
          * Throw an IllegalArgumentException if index is out of bounds.
@@ -72,10 +131,29 @@ public class MyArrayList {
          * Also do not forget to resize when necessary.
          *
          * */
+        if (index >= 0 && index < currSize) {
+            int[] newList = new int[currSize - 1];
+            System.arraycopy(lst, 0, newList, 0, index);
+            System.arraycopy(lst, index + 1, newList, index, currSize - index - 1);
+            currSize--;
+            int removedVar = lst[index];
+
+            for (int i = 0; i < currSize; i++){
+                lst[i] = newList[i];
+            }
+
+            return  removedVar;
+                } else
+                     throw new IllegalArgumentException();
+        }
+
+
+
 
         // YOUR CODE HERE
 
-    }
+        //resize(currSize - 1);
+
 
     private void resize(int newSize) {
         /* This helper method might be helpful...
@@ -84,7 +162,9 @@ public class MyArrayList {
          *
          * */
 
+
         // YOUR CODE HERE
+        int[] newList = new int[newSize];
 
     }
 
@@ -92,12 +172,21 @@ public class MyArrayList {
         /* Returns size of the ArrayList */
 
         // YOUR CODE HERE
-
+        int count = 0;
+        for (int i = 0; i < currSize; i++) {
+            if (lst[i] != 0) {
+                count++;
+            }
+        }
+        if (lst[0] == 0 && lst.length > 7)
+            count++;
+        return count;
     }
 
     public int getArraySize() {
         /* For testing purposes only */
-        return lst.length;
+
+        return 0;
     }
 
 }

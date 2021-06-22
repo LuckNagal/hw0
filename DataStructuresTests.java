@@ -89,7 +89,6 @@ public class DataStructuresTests {
         for (int i = 0; i < 1000000; i++) {
             arrayList.add(i);
         }
-
         Assert.assertEquals(1000000, arrayList.getSize());
         Assert.assertEquals(Math.pow(2, 20), arrayList.getArraySize(), 0);
 
@@ -101,10 +100,10 @@ public class DataStructuresTests {
     @Test
     public void testAddThenRemoveResize() {
         Assert.assertEquals(0, arrayList.getSize());
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             arrayList.add(i);
         }
-
+// change to 1000
         Assert.assertEquals(1000, arrayList.getSize());
         Assert.assertEquals(Math.pow(2, 10), arrayList.getArraySize(), 0);
 
