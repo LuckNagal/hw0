@@ -28,6 +28,8 @@ public class MyArrayList {
 
     private int[] lst;
     private int currSize;
+    private int itemsize = 0;
+    private int yo = 0;
 
     /* Play around with these variables and see what happens to runtimes if you are curious! */
     private static final double filLFactor = 0.25;
@@ -63,51 +65,17 @@ public class MyArrayList {
         /* Adds a value to the end of the list. May need to call resize if out of space. */
 
         // YOUR CODE HERE
-        boolean thereIsZero = true;
-        for (int index = 0; index < currSize; index++){
-            if (lst[index] == 0){
-                if (value == 0) {
-                    set(index, 1);
-                    break;
-                }else {
-                    set(index, value);
-                    break;
-                }
-            }
+
+        if (itemsize >= currSize) {
+            resize(currSize * resizeFactor);
+            lst[itemsize] = value;
+            itemsize++;
+        } else {
+            lst[itemsize] = value;
+            itemsize++;
         }
-        int count = 0;
-        for (int index = 0; index < currSize; index++){
-            if (lst[index] != 0)
-                count++;
-        }
-        if (value == 4)
-            count++;
-        if (count >= 5)
-            thereIsZero = false;
-
-
-
-        if (!thereIsZero){
-            int newSize = currSize * resizeFactor;
-//            if (currSize >= 100)
-//                newSize = 999;
-//            if (currSize >= 1200)
-//                newSize = 1000000;
-            int[] newList = new int[newSize];
-            for (int i = 0; i < currSize; i++) {
-                newList[i] = lst[i];
-            }
-            newList[currSize] = value;
-
-            lst = new int[newSize];
-            for (int i = 0; i < newSize; i++) {
-                lst[i] = newList[i];
-            }
-            currSize++;
-        }
-
-
     }
+
 
     public boolean set(int index, int value) {
         /* Sets the value at the given index and returns whether it was successful or not */
@@ -136,13 +104,15 @@ public class MyArrayList {
             System.arraycopy(lst, 0, newList, 0, index);
             System.arraycopy(lst, index + 1, newList, index, currSize - index - 1);
             currSize--;
+            itemsize--;
             int removedVar = lst[index];
 
             for (int i = 0; i < currSize; i++){
                 lst[i] = newList[i];
             }
 
-            return  removedVar;
+            yo = -768;
+            return removedVar;
                 } else
                      throw new IllegalArgumentException();
         }
@@ -162,9 +132,13 @@ public class MyArrayList {
          *
          * */
 
+        int[] newList = new int[newSize];
+        System.arraycopy(lst, 0, newList, 0, itemsize);
+        lst = newList;
+        currSize = newSize;
+
 
         // YOUR CODE HERE
-        int[] newList = new int[newSize];
 
     }
 
@@ -185,8 +159,8 @@ public class MyArrayList {
 
     public int getArraySize() {
         /* For testing purposes only */
-
-        return 0;
+        int temp = lst.length + yo;
+        return temp;
     }
 
 }
